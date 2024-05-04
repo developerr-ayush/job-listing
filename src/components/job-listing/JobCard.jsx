@@ -8,6 +8,8 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import { JobDialog } from "./JobDialog";
 // box shadow style for job posted
 const JobPosted = styled(Box)({
   backgroundColor: "#f0f0f0",
@@ -52,7 +54,7 @@ const OverlayButton = styled(Box)({
   alignItems: "flex-end",
   justifyContent: "center",
 });
-const ShowMore = styled("a")({
+const ShowMore = styled(Button)({
   textDecoration: "none",
   color: "#4943da",
   padding: "5px 10px",
@@ -79,15 +81,23 @@ const ButtonStyle = styled(Button)({
 export const JobCard = ({ job }) => {
   const salary = () => {
     if (job.minJdSalary && job.maxJdSalary) {
-      return `${job.minJdSalary.toLocaleString("en-US", {
-        style: "currency",
-        currency: job.salaryCurrencyCode,
-        maximumFractionDigits: 0,
-      })} - ${job.maxJdSalary.toLocaleString("en-US", {
-        style: "currency",
-        currency: job.salaryCurrencyCode,
-        maximumFractionDigits: 0,
-      })} LPA ⚠️`;
+      if (job.minJdSalary === job.maxJdSalary) {
+        return `${job.minJdSalary.toLocaleString("en-US", {
+          style: "currency",
+          currency: job.salaryCurrencyCode || "INR",
+          maximumFractionDigits: 0,
+        })} LPA ⚠️`;
+      } else {
+        return `${job.minJdSalary.toLocaleString("en-US", {
+          style: "currency",
+          currency: job.salaryCurrencyCode,
+          maximumFractionDigits: 0,
+        })} - ${job.maxJdSalary.toLocaleString("en-US", {
+          style: "currency",
+          currency: job.salaryCurrencyCode,
+          maximumFractionDigits: 0,
+        })} LPA ⚠️`;
+      }
     }
     if (job.minJdSalary) {
       return `${job.minJdSalary.toLocaleString("en-US", {
@@ -105,9 +115,37 @@ export const JobCard = ({ job }) => {
     }
     return "Not Specified";
   };
+  const Experience = () => {
+    if (job.minExp && job.maxExp) {
+      if (job.minExp === job.maxExp) {
+        return `${job.minExp} years`;
+      } else {
+        return `${job.minExp} - ${job.maxExp} years`;
+      }
+    }
+    if (job.minExp) {
+      return `${job.minExp} years`;
+    }
+    if (job.maxExp) {
+      return `${job.maxExp} years`;
+    }
+    return "Not Specified";
+  };
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Card style={{ borderRadius: 20 }}>
-      <CardContent>
+    <Card style={{ borderRadius: 20, height: "100%" }}>
+      <CardContent
+        style={{ display: "flex", flexDirection: "column", height: "100%" }}
+      >
         <JobPosted>
           <Typography fontSize={10}>⏳ Posted 3 days ago</Typography>
         </JobPosted>
@@ -131,17 +169,18 @@ export const JobCard = ({ job }) => {
           </Typography>
 
           <Typography fontSize={14}>{job.jobDetailsFromCompany}</Typography>
-          <OverlayButton>
-            <ShowMore href="">Show More</ShowMore>
+          <OverlayButton onClick={handleClickOpen}>
+            <ShowMore>Show More</ShowMore>
           </OverlayButton>
         </JobDescription>
-        <Box marginBottom={2}>
-          <Typography fontSize={14} fontWeight={800}>
-            Experience:
-          </Typography>
-          <Typography fontSize={14}>
-            {job.minExp} - {job.maxExp} years
-          </Typography>
+        <Box marginBottom={2} marginTop={"auto"}>
+          {(job.minExp || job.maxExp) && (
+            <Typography fontSize={14} fontWeight={800}>
+              Experience:
+            </Typography>
+          )}
+
+          <Typography fontSize={14}>{Experience()}</Typography>
         </Box>
         <ButtonStyle
           as="a"
@@ -152,6 +191,11 @@ export const JobCard = ({ job }) => {
           ⚡ Easy Apply
         </ButtonStyle>
       </CardContent>
+      <JobDialog
+        open={open}
+        handleClose={handleClose}
+        description={job.jobDetailsFromCompany}
+      />
     </Card>
   );
 };

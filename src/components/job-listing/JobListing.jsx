@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { JobCard } from "./JobCard";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -21,19 +21,21 @@ export const JobListing = () => {
   };
   if (!jobs) return <h1>Loading...</h1>;
   return (
-    <InfiniteScroll
-      dataLength={jobs.length}
-      next={fetchMoreData}
-      hasMore={jobs.length !== totalJob}
-      loader={<JobLoader />}
-    >
-      <Grid container spacing={3} className="job-listing" padding={2}>
-        {jobs.map((job) => (
-          <Grid item xs={12} sm={6} md={4} key={job.id}>
-            <JobCard job={job} />
-          </Grid>
-        ))}
-      </Grid>
-    </InfiniteScroll>
+    <Container>
+      <InfiniteScroll
+        dataLength={jobs.length}
+        next={fetchMoreData}
+        hasMore={jobs.length !== totalJob}
+        loader={<JobLoader />}
+      >
+        <Grid container spacing={3} className="job-listing" padding={2}>
+          {jobs.map((job) => (
+            <Grid item xs={12} sm={6} lg={4} key={job.id}>
+              <JobCard job={job} />
+            </Grid>
+          ))}
+        </Grid>
+      </InfiniteScroll>
+    </Container>
   );
 };
