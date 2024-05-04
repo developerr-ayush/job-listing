@@ -155,8 +155,12 @@ export const JobCard = ({ job }) => {
             <Typography fontSize={13} fontWeight={800}>
               {job.companyName}
             </Typography>
-            <Typography fontSize={14}>{job.jobRole}</Typography>
-            <Typography fontSize={12}>{job.location}</Typography>
+            <Typography fontSize={14} textTransform={"uppercase"}>
+              {job.jobRole}
+            </Typography>
+            <Typography fontSize={12} textTransform={"uppercase"}>
+              {job.location}
+            </Typography>
           </div>
         </JobInfo>
         <Typography fontSize={14} className="estimated">

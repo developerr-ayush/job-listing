@@ -18,3 +18,19 @@ export const fetchJobs = async (offset) => {
   let JSONData = await data.json();
   return JSONData;
 };
+export const filteredJobs = (jobs, filters) => {
+  return jobs.filter((job) => {
+    console.log(filters, job);
+    if (filters.minExp && job.minExp && job.minExp < filters.minExp) {
+      return false;
+    }
+    if (!!filters.jobRole.length && !!job.jobRole.length) {
+      if (filters.jobRole.includes(job.jobRole)) {
+        console.log(filters.jobRole);
+        return true;
+      }
+      return false;
+    }
+    return true;
+  });
+};

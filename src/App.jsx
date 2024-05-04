@@ -3,6 +3,8 @@ import { JobListing } from "./components/job-listing/JobListing";
 import { useDispatch } from "react-redux";
 import { fetchJobs } from "../redux/action";
 import { setJobs, setTotalJobs } from "../redux/job-listing/job-slice";
+import { Container } from "@mui/material";
+import { JobFilter } from "./components/job-listing/JobFilter";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +17,14 @@ function App() {
     fetchedJob();
   }, [fetchedJob]);
 
-  return <JobListing />;
+  return (
+    <div className="wrapper">
+      <Container>
+        <JobFilter />
+        <JobListing />
+      </Container>
+    </div>
+  );
 }
 
 export default App;
