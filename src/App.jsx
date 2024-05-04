@@ -1,5 +1,7 @@
+import { CardListing } from "./components/card-list/CardListing";
+
 function App() {
-  return <div>Hello World</div>;
+  return <CardListing />;
 }
 
 export default App;
