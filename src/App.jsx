@@ -1,7 +1,7 @@
-import { CardListing } from "./components/card-list/CardListing";
+import { JobCard } from "./components/job-listing/JobCard";
 
 function App() {
-  return <CardListing />;
+  return <JobCard />;
 }
 
 export default App;
