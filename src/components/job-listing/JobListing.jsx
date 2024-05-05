@@ -31,7 +31,7 @@ export const JobListing = () => {
       next={fetchMoreData}
       hasMore={jobs.length < totalJob}
       loader={<Spinner />}
-      scrollThreshold={0.1}
+      scrollThreshold={0.5}
     >
       <Grid container spacing={3} className="job-listing" padding={2}>
         {!!filteredJob &&
