@@ -18,3 +18,8 @@ Hey there in this project i have created a job listing feature along with filter
 
 ## Hosted URL
 - To see website on hosted url go to this URL `https://jobs-listing-by-ayush.netlify.app/`
+
+## Build
+- for deploying on production follow this steps
+    - run `npm run build`
+    - you will get a `dist` folder which can be published on website 
