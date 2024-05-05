@@ -11,8 +11,15 @@ export default function BasicSelect({ label, optionList, type, dispatcher }) {
   const dispatch = useDispatch();
   const handleChange = (event) => {
     setOption(event.target.value);
-    dispatch(dispatcher(event.target.value));
   };
+  React.useEffect(() => {
+    let id = setTimeout(() => {
+      dispatch(dispatcher(option));
+    }, 2000);
+    return () => {
+      clearTimeout(id);
+    };
+  }, [option]);
 
   return (
     <div>

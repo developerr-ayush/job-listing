@@ -20,15 +20,23 @@ export const fetchJobs = async (offset) => {
 };
 export const filteredJobs = (jobs, filters) => {
   return jobs.filter((job) => {
-    console.log(filters, job);
     if (filters.minExp && job.minExp && job.minExp < filters.minExp) {
       return false;
     }
-    if (!!filters.jobRole.length && !!job.jobRole.length) {
-      if (filters.jobRole.includes(job.jobRole)) {
-        console.log(filters.jobRole);
-        return true;
-      }
+    if (filters.minPay && job.minJdSalary && job.minJdSalary < filters.minPay) {
+      return false;
+    }
+    if (
+      !!filters.jobRole.length &&
+      !!job.jobRole.length &&
+      !filters.jobRole.includes(job.jobRole)
+    ) {
+      return false;
+    }
+    if (
+      filters.companyName &&
+      !job.companyName.toLowerCase().includes(filters.companyName.toLowerCase())
+    ) {
       return false;
     }
     return true;

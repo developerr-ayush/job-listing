@@ -8,7 +8,8 @@ img {
   display: block;
   width: 100%;
 }
-.job-loader {
+.job-loader,
+.spinner {
   width: 48px;
   height: 48px;
   border: 5px solid #fff;

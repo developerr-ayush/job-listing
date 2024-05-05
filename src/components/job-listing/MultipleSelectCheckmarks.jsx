@@ -38,7 +38,12 @@ export default function MultipleSelectCheckmarks({
     );
   };
   React.useEffect(() => {
-    dispatch(dispatcher(option));
+    let id = setTimeout(() => {
+      dispatch(dispatcher(option));
+    }, 2000);
+    return () => {
+      clearTimeout(id);
+    };
   }, [option]);
 
   return (

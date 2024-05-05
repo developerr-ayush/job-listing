@@ -144,7 +144,12 @@ export const JobCard = ({ job }) => {
   return (
     <Card style={{ borderRadius: 20, height: "100%" }}>
       <CardContent
-        style={{ display: "flex", flexDirection: "column", height: "100%" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          alignItems: "flex-start",
+        }}
       >
         <JobPosted>
           <Typography fontSize={10}>⏳ Posted 3 days ago</Typography>

@@ -2,11 +2,13 @@ import { Box } from "@mui/material";
 import BasicSelect from "./BasicSelect";
 import MultipleSelectCheckmarks from "./MultipleSelectCheckmarks";
 import {
+  setCompanyName,
   setJobRole,
   setMinExp,
   setMinPay,
   setTechStack,
 } from "../../../redux/job-listing/job-filter";
+import { JobSearch } from "./JobSearch";
 let filterOptions = {
   minExp: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   companyName: "",
@@ -45,6 +47,8 @@ export const JobFilter = () => {
         optionList={filterOptions.techStack}
         dispatcher={setTechStack}
       />
+      {/* search for company */}
+      <JobSearch label="Company Name" dispatcher={setCompanyName} />
     </Box>
   );
 };
